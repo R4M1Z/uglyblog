@@ -4,6 +4,7 @@ include 'header.php';
 if(!$loggedin){
   echo "<script>alert('You must log in to delete account');
   window.location = 'login.php';</script>";
+  exit;
 }
 $errors = array('empty' =>'','incorrect'=>'');
 if(isset($_POST['submit'])){
@@ -30,11 +31,14 @@ if(isset($_POST['submit'])){
       }
       if(mysqli_query($conn,$sql)){
         if(isset($_POST['delete_articles'])){
-          $sql="DELETE FROM articles WHERE created_by='$username'";
-          mysqli_query($conn,$sql);
+            $sql="DELETE FROM articles WHERE created_by='$username'";
+            mysqli_query($conn,$sql);
         }
+        setcookie('username','',time()-3600);
+        session_unset();
         echo "<script> alert('DELETED');
         window.location = 'login.php?action=deleted';</script>";
+        exit;
       }
       else{
           echo "Cannot delete ".mysqli_error($conn);

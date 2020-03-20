@@ -1,4 +1,5 @@
 <?php
+$title="Articles";
 include 'header.php';
 if($loggedin==true){
   if(!isset($_GET['id'])){

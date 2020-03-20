@@ -6,6 +6,7 @@ if($loggedin){
     setcookie('username','',time()-3600);
     session_unset();
     header("Location: login.php");
+    exit;
   }
   header("Location:profile.php");
 }
@@ -34,6 +35,7 @@ if(isset($_POST['submit'])){
       }else{
       $_SESSION['username']=$user['username'];}
       header("Location: index.php");
+      exit;
       }
     }
 ?>
